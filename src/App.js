@@ -1,26 +1,65 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { loadSounds, playSound } from './services/shared';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+class App extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			buffer: {},
+			pattern:{},
+			soundnames:{ kick: 'kick',
+				hihat:'hihat'},
+			soundkeys:[],
+			context: null,
+			soundmap: { kick: 'https://raw.githubusercontent.com/wesbos/JavaScript30/master/01%20-%20JavaScript%20Drum%20Kit/sounds/boom.wav',
+				hihat:'https://raw.githubusercontent.com/wesbos/JavaScript30/master/01%20-%20JavaScript%20Drum%20Kit/sounds/hihat.wav '},
+			tempo:80,
+			bar:8,
+			isplaying:false,
+		}
+	}
+
+	componentDidMount() {
+		this.bufferLoad();
+	}
+
+
+	bufferLoad=()=>{
+		let {bar,soundmap,context}=this.state;
+		let buffer = {};
+		let soundkeys=Object.keys(soundmap);
+		let pattern = {};
+		if (context===null)
+			context=new window.AudioContext();
+
+		let arr= new Array(bar).fill(0);
+		for (const element of soundkeys) {
+			pattern[element]=arr;
+		}
+		//console.log(pattern);
+		//let pattern= new Array(soundkeys).fill(0).map(()=> new Array(bar).fill(0));
+		loadSounds(context, buffer, soundmap);
+		this.setState({context,buffer,pattern,soundkeys})
+	}
+
+	handleClick = () => {
+		let { context, buffer } = this.state;
+		playSound(context, buffer.kick, 0);
+	}
+
+	render() {
+		console.log(this.state);
+		return (
+			<div>
+				hello new world
+				<button onClick={this.handleClick}>Hello world</button>
+			</div>
+		)
+	}
+
 }
+
 
 export default App;

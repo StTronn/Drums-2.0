@@ -1,0 +1,16 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+BufferLoader	services/shared.js	/^function BufferLoader(context, urlList, callback) {$/;"	c
+buffer	App.js	/^		this.state={$/;"	p	class:state
+checkValidServiceWorker	serviceWorker.js	/^function checkValidServiceWorker(swUrl, config) {$/;"	f
+load	services/shared.js	/^BufferLoader.prototype.load = function() {$/;"	m	class:BufferLoader
+loadBuffer	services/shared.js	/^BufferLoader.prototype.loadBuffer = function(url, index) {$/;"	m	class:BufferLoader
+loadSounds	services/shared.js	/^function loadSounds(obj, soundMap, callback) {$/;"	f
+playSound	services/shared.js	/^function playSound(buffer, time) {$/;"	f
+registerValidSW	serviceWorker.js	/^function registerValidSW(swUrl, config) {$/;"	f
+request.onerror	services/shared.js	/^  }$/;"	f
+request.onload	services/shared.js	/^  var loader = this;$/;"	f
