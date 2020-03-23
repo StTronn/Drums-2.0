@@ -1,6 +1,8 @@
 import React from "react";
 import "./App.css";
 import { loadSounds, playSound } from "./services/shared";
+import InstrumentArea from "./components/InstrumentArea";
+import PadArea from "./components/PadArea";
 
 class App extends React.Component {
   constructor(props) {
@@ -102,37 +104,19 @@ class App extends React.Component {
 
   render() {
     console.log(this.state);
-    let { pattern, soundkeys, bar } = this.state;
+    let { soundkeys, bar } = this.state;
     return (
       <div>
-        hello new worl
         <button
           onClick={this.state.isPlaying === false ? this.start : this.stop}
         >
           {this.state.isPlaying === false ? "start" : "stop"}
         </button>
-        {soundkeys.map((o, i) => {
-          return (
-            <button
-              key={i}
-              onClick={() => {
-                this.changeSelectedSounds(o);
-              }}
-            >
-              {o}
-            </button>
-          );
-        })}
-        {[...Array(bar)].map((e, i) => (
-          <button
-            key={i}
-            onClick={() => {
-              this.handleClick(i);
-            }}
-          >
-            ♦
-          </button>
-        ))}
+        <InstrumentArea
+          soundkeys={soundkeys}
+          changeSelectedSounds={this.changeSelectedSounds}
+        />
+        <PadArea bar={bar} handleClick={this.handleClick} />
       </div>
     );
   }

@@ -10,25 +10,24 @@
 
 // // shim layer with setTimeout fallback
 // window.requestAnimFrame = (function(){
-// return  window.requestAnimationFrame       || 
-//   window.webkitRequestAnimationFrame || 
-//   window.mozRequestAnimationFrame    || 
-//   window.oRequestAnimationFrame      || 
-//   window.msRequestAnimationFrame     || 
+// return  window.requestAnimationFrame       ||
+//   window.webkitRequestAnimationFrame ||
+//   window.mozRequestAnimationFrame    ||
+//   window.oRequestAnimationFrame      ||
+//   window.msRequestAnimationFrame     ||
 //   function( callback ){
 //   window.setTimeout(callback, 1000 / 60);
 // };
 // })();
 
-
-function playSound(context,buffer, time) {
+function playSound(context, buffer, time) {
   var source = context.createBufferSource();
   source.buffer = buffer;
   source.connect(context.destination);
-  source[source.start ? 'start' : 'noteOn'](time);
+  source[source.start ? "start" : "noteOn"](time);
 }
 
-function loadSounds(context,obj, soundMap, callback) {
+function loadSounds(context, obj, soundMap, callback) {
   // Array-ify
   var names = [];
   var paths = [];
@@ -49,9 +48,6 @@ function loadSounds(context,obj, soundMap, callback) {
   });
   bufferLoader.load();
 }
-
-
-
 
 function BufferLoader(context, urlList, callback) {
   this.context = context;
@@ -75,7 +71,7 @@ BufferLoader.prototype.loadBuffer = function(url, index) {
       request.response,
       function(buffer) {
         if (!buffer) {
-          alert('error decoding file data: ' + url);
+          alert("error decoding file data: " + url);
           return;
         }
         loader.bufferList[index] = buffer;
@@ -83,21 +79,21 @@ BufferLoader.prototype.loadBuffer = function(url, index) {
           loader.onload(loader.bufferList);
       },
       function(error) {
-        console.error('decodeAudioData error', error);
+        console.error("decodeAudioData error", error);
       }
     );
-  }
+  };
 
   request.onerror = function() {
-    alert('BufferLoader: XHR error');
-  }
+    alert("BufferLoader: XHR error");
+  };
 
   request.send();
 };
 
 BufferLoader.prototype.load = function() {
   for (var i = 0; i < this.urlList.length; ++i)
-  this.loadBuffer(this.urlList[i], i);
+    this.loadBuffer(this.urlList[i], i);
 };
 
-export {loadSounds,playSound}
+export { loadSounds, playSound };
