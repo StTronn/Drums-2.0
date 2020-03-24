@@ -19,13 +19,16 @@ class App extends React.Component {
         hihat:
           "https://raw.githubusercontent.com/wesbos/JavaScript30/master/01%20-%20JavaScript%20Drum%20Kit/sounds/hihat.wav ",
         snare:
-          "https://raw.githubusercontent.com/wesbos/JavaScript30/master/01%20-%20JavaScript%20Drum%20Kit/sounds/snare.wav"
+          "https://raw.githubusercontent.com/wesbos/JavaScript30/master/01%20-%20JavaScript%20Drum%20Kit/sounds/snare.wav",
+        tom:
+          "https://raw.githubusercontent.com/wesbos/JavaScript30/master/01%20-%20JavaScript%20Drum%20Kit/sounds/tom.wav"
       },
       tempo: 80,
       bar: 8,
       isPlaying: false,
       selectedSound: null,
-      counter: 0
+      counter: 0,
+      connectors: {}
     };
   }
 
@@ -34,7 +37,7 @@ class App extends React.Component {
   }
 
   bufferLoad = () => {
-    let { bar, soundmap, context } = this.state;
+    let { bar, soundmap, context, connectors } = this.state;
     let buffer = {};
     let soundkeys = Object.keys(soundmap);
     let pattern = {};
@@ -43,10 +46,12 @@ class App extends React.Component {
     for (const element of soundkeys) {
       let arr = new Array(bar).fill(0);
       pattern[element] = arr;
+      connectors[element] = context.createGain();
+      connectors[element].connect(context.destination);
     }
 
     loadSounds(context, buffer, soundmap);
-    this.setState({ context, buffer, pattern, soundkeys });
+    this.setState({ context, buffer, pattern, soundkeys, connectors });
   };
 
   start = () => {
@@ -65,11 +70,19 @@ class App extends React.Component {
   };
 
   loop = () => {
-    let { counter, bar, soundkeys, pattern, buffer, context } = this.state;
+    let {
+      counter,
+      bar,
+      soundkeys,
+      pattern,
+      buffer,
+      context,
+      connectors
+    } = this.state;
     counter = (counter + 1) % bar;
     for (let soundkey of soundkeys) {
       if (pattern[soundkey][counter] === 1) {
-        playSound(context, buffer[soundkey], 0);
+        playSound(context, buffer[soundkey], 0, connectors[soundkey]);
       }
     }
     this.setState({ counter });

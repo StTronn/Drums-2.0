@@ -20,10 +20,11 @@
 // };
 // })();
 
-function playSound(context, buffer, time) {
+function playSound(context, buffer, time, connector = undefined) {
   var source = context.createBufferSource();
   source.buffer = buffer;
-  source.connect(context.destination);
+  if (connector !== undefined) source.connect(connector);
+  else source.connect(context.destination);
   source[source.start ? "start" : "noteOn"](time);
 }
 
