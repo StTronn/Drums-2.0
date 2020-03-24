@@ -1,4 +1,5 @@
 import React from "react";
+import Instrument from "./Instrument";
 
 export default class InstrumentArea extends React.Component {
   render() {
@@ -9,14 +10,11 @@ export default class InstrumentArea extends React.Component {
       <div>
         {soundkeys.map((o, i) => {
           return (
-            <button
+            <Instrument
               key={i}
-              onClick={() => {
-                changeSelectedSounds(o);
-              }}
-            >
-              {o}
-            </button>
+              changeSelectedSounds={changeSelectedSounds}
+              soundkey={o}
+            />
           );
         })}
       </div>
