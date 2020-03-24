@@ -3,6 +3,7 @@ import "./App.css";
 import _ from "lodash";
 import { loadSounds, playSound } from "./services/shared";
 import InstrumentArea from "./components/InstrumentArea";
+import TempoButton from "./components/TempoButton";
 import PadArea from "./components/PadArea";
 
 class App extends React.Component {
@@ -70,6 +71,22 @@ class App extends React.Component {
     this.setState({ isPlaying: false });
   };
 
+  changeTempo = delta => {
+    let { tempo, isPlaying } = this.state;
+    let start = this.start;
+    if (tempo + delta >= 50 && tempo + delta <= 200) {
+      tempo = tempo + delta;
+      if (isPlaying === true) {
+        this.stop();
+        this.setState({ tempo }, () => {
+          start();
+        });
+      } else {
+        this.setState({ tempo });
+      }
+    }
+  };
+
   loop = () => {
     let {
       counter,
@@ -118,7 +135,7 @@ class App extends React.Component {
 
   render() {
     console.log(this.state);
-    let { soundkeys, bar, connectors } = this.state;
+    let { soundkeys, bar, tempo, connectors } = this.state;
     return (
       <div>
         {!_.isEmpty(connectors) && (
@@ -128,7 +145,7 @@ class App extends React.Component {
             >
               {this.state.isPlaying === false ? "start" : "stop"}
             </button>
-
+            <TempoButton tempo={tempo} changeTempo={this.changeTempo} />
             <InstrumentArea
               soundkeys={soundkeys}
               changeSelectedSounds={this.changeSelectedSounds}
