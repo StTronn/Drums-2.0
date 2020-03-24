@@ -1,5 +1,6 @@
 import React from "react";
 import "./App.css";
+import _ from "lodash";
 import { loadSounds, playSound } from "./services/shared";
 import InstrumentArea from "./components/InstrumentArea";
 import PadArea from "./components/PadArea";
@@ -117,19 +118,25 @@ class App extends React.Component {
 
   render() {
     console.log(this.state);
-    let { soundkeys, bar } = this.state;
+    let { soundkeys, bar, connectors } = this.state;
     return (
       <div>
-        <button
-          onClick={this.state.isPlaying === false ? this.start : this.stop}
-        >
-          {this.state.isPlaying === false ? "start" : "stop"}
-        </button>
-        <InstrumentArea
-          soundkeys={soundkeys}
-          changeSelectedSounds={this.changeSelectedSounds}
-        />
-        <PadArea bar={bar} handleClick={this.handleClick} />
+        {!_.isEmpty(connectors) && (
+          <div>
+            <button
+              onClick={this.state.isPlaying === false ? this.start : this.stop}
+            >
+              {this.state.isPlaying === false ? "start" : "stop"}
+            </button>
+
+            <InstrumentArea
+              soundkeys={soundkeys}
+              changeSelectedSounds={this.changeSelectedSounds}
+              connectors={connectors}
+            />
+            <PadArea bar={bar} handleClick={this.handleClick} />
+          </div>
+        )}
       </div>
     );
   }

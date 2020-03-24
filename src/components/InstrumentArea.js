@@ -2,7 +2,8 @@ import React from "react";
 
 export default class InstrumentArea extends React.Component {
   render() {
-    let { soundkeys, changeSelectedSounds } = this.props;
+    let { soundkeys, changeSelectedSounds, connectors } = this.props;
+    console.log(this.props, connectors);
 
     return (
       <div>
