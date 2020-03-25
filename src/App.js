@@ -58,7 +58,6 @@ class App extends React.Component {
 
   start = () => {
     let { tempo, isPlaying } = this.state;
-    console.log(tempo, isPlaying);
     if (isPlaying === true) return;
     else {
       this.interval = setInterval(this.loop, (60 * 1000) / tempo);
@@ -128,13 +127,11 @@ class App extends React.Component {
         else arr.push(change);
       }
       pattern[selectedSound] = arr;
-      console.log(change, pattern[selectedSound][pos]);
     }
     this.setState({ pattern });
   };
 
   render() {
-    console.log(this.state);
     let { context, soundkeys, bar, tempo, connectors } = this.state;
     return (
       <div>
