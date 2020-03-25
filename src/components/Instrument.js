@@ -7,6 +7,11 @@ export default class Instrument extends React.Component {
       gainNodeValue: 0
     };
   }
+  componentDidMount() {
+    let { connector, context } = this.props;
+    console.log(this.props);
+    connector.connect(context.destination);
+  }
   render() {
     let { changeSelectedSounds, connector, soundkey } = this.props;
     return (

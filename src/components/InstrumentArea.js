@@ -3,8 +3,7 @@ import Instrument from "./Instrument";
 
 export default class InstrumentArea extends React.Component {
   render() {
-    let { soundkeys, changeSelectedSounds, connectors } = this.props;
-    console.log(this.props, connectors);
+    let { soundkeys, changeSelectedSounds, connectors, context } = this.props;
 
     return (
       <div>
@@ -12,8 +11,10 @@ export default class InstrumentArea extends React.Component {
           return (
             <Instrument
               key={i}
+              context={context}
               changeSelectedSounds={changeSelectedSounds}
               soundkey={o}
+              connector={connectors[o]}
             />
           );
         })}

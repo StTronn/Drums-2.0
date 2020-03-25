@@ -49,7 +49,7 @@ class App extends React.Component {
       let arr = new Array(bar).fill(0);
       pattern[element] = arr;
       connectors[element] = context.createGain();
-      connectors[element].connect(context.destination);
+      //connectors[element].connect(context.destination);
     }
 
     loadSounds(context, buffer, soundmap);
@@ -135,7 +135,7 @@ class App extends React.Component {
 
   render() {
     console.log(this.state);
-    let { soundkeys, bar, tempo, connectors } = this.state;
+    let { context, soundkeys, bar, tempo, connectors } = this.state;
     return (
       <div>
         {!_.isEmpty(connectors) && (
@@ -150,6 +150,7 @@ class App extends React.Component {
               soundkeys={soundkeys}
               changeSelectedSounds={this.changeSelectedSounds}
               connectors={connectors}
+              context={context}
             />
             <PadArea bar={bar} handleClick={this.handleClick} />
           </div>
