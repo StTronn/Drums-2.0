@@ -1,0 +1,55 @@
+:root {
+    --g: #53D176;
+  }
+body {
+    margin: 0px;
+
+}
+
+.cointainer{
+    background-color: black;
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 10vw 1fr;
+    grid-template-rows: 15vh 65vh 1fr;
+    grid-template-areas: "o o"
+       "ia ia"
+       "s pa" ;
+}
+
+.overallControl {
+    grid-area: o;
+}
+
+.instrumentArea{
+    grid-area: ia;
+    display: grid;
+    column-gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(20px, 1fr));
+    padding: 20px;
+
+}
+.instrument{
+    border: 1px solid var(--g);
+}
+.padArea {
+    grid-area: pa;
+    display: grid;
+    padding-right:20px ;
+    column-gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(20px, 1fr));
+
+}
+.pad {
+    color: #fff;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    background-color: cyan;
+}
+.clickPad {
+    color: cyan
+}
+.rec {
+    grid-area: r;
+}
