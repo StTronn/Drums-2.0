@@ -114,10 +114,13 @@ inset -10px 0 150px #04005E, /* inner right cyan broad */
 
 .instrumentButton {
     border: 1px solid var(--g);
+  background-color: var(--g);
+
     text-align: center;
     color: white;
     width: 8em;
     height: 30px;
+    box-shadow: 0 0px 10px var(--g);
 }
 .instrumentButtonSelected {
   border: 1px solid var(--g);
@@ -126,7 +129,7 @@ inset -10px 0 150px #04005E, /* inner right cyan broad */
   color: white;
   width: 8em;
   height: 30px;
-
+  box-shadow: 0 5px 10px var(--g);
 }
 
 input[type=range] {

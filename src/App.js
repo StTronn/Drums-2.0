@@ -24,9 +24,11 @@ class App extends React.Component {
         snare:
           "https://raw.githubusercontent.com/wesbos/JavaScript30/master/01%20-%20JavaScript%20Drum%20Kit/sounds/snare.wav",
         tom:
-          "https://raw.githubusercontent.com/wesbos/JavaScript30/master/01%20-%20JavaScript%20Drum%20Kit/sounds/tom.wav"
-      },
-      tempo: 80,
+          "https://raw.githubusercontent.com/wesbos/JavaScript30/master/01%20-%20JavaScript%20Drum%20Kit/sounds/tom.wav",
+        ride:
+        "https://raw.githubusercontent.com/wesbos/JavaScript30/master/01%20-%20JavaScript%20Drum%20Kit/sounds/ride.wav"
+        },
+      tempo: 160,
       bar: 16,
       isPlaying: false,
       selectedSound: null,
@@ -74,7 +76,7 @@ class App extends React.Component {
   changeTempo = delta => {
     let { tempo, isPlaying } = this.state;
     let start = this.start;
-    if (tempo + delta >= 50 && tempo + delta <= 200) {
+    if (tempo + delta >= 50 && tempo + delta <= 260) {
       tempo = tempo + delta;
       if (isPlaying === true) {
         this.stop();
@@ -86,7 +88,9 @@ class App extends React.Component {
       }
     }
   };
-
+  tap =()=>{
+    this.setState({selectedSound:null});
+  }
   loop = () => {
     let {
       counter,
@@ -133,7 +137,7 @@ class App extends React.Component {
   };
 
   render() {
-    let { context, soundkeys, bar, tempo, connectors } = this.state;
+    let { context, soundkeys, bar, tempo, connectors,pattern,selectedSound,isPlaying,counter } = this.state;
     return (
       <div >
         
@@ -148,14 +152,21 @@ class App extends React.Component {
               changeSelectedSounds={this.changeSelectedSounds}
               connectors={connectors}
               context={context}
+              selectedSound={selectedSound}
             />
-            <PadArea bar={bar} handleClick={this.handleClick} />
+            <PadArea bar={bar} handleClick={this.handleClick} padPattern={pattern[selectedSound]} counter={counter} isPlaying={isPlaying} />
             <div className="controlArea">
-            <button
+            <div className={isPlaying===false?"start":"stop"}
               onClick={this.state.isPlaying === false ? this.start : this.stop}
             >
               {this.state.isPlaying === false ? "start" : "stop"}
-            </button>
+            </div>
+            <div className={selectedSound!==null?"start":"stop"} 
+              onClick={this.tap}
+            >
+              tap
+            </div>
+
             </div>
           </div>
         )}
