@@ -1,5 +1,6 @@
 import React from "react";
 import "./App.css";
+import "./main.css";
 import _ from "lodash";
 import { loadSounds, playSound } from "./services/shared";
 import InstrumentArea from "./components/InstrumentArea";
@@ -26,7 +27,7 @@ class App extends React.Component {
           "https://raw.githubusercontent.com/wesbos/JavaScript30/master/01%20-%20JavaScript%20Drum%20Kit/sounds/tom.wav"
       },
       tempo: 80,
-      bar: 8,
+      bar: 16,
       isPlaying: false,
       selectedSound: null,
       counter: 0,
@@ -134,15 +135,14 @@ class App extends React.Component {
   render() {
     let { context, soundkeys, bar, tempo, connectors } = this.state;
     return (
-      <div>
+      <div >
+        
         {!_.isEmpty(connectors) && (
-          <div>
-            <button
-              onClick={this.state.isPlaying === false ? this.start : this.stop}
-            >
-              {this.state.isPlaying === false ? "start" : "stop"}
-            </button>
+          <div className="cointainer">
+            <div className="overallControl">
             <TempoButton tempo={tempo} changeTempo={this.changeTempo} />
+            </div>
+
             <InstrumentArea
               soundkeys={soundkeys}
               changeSelectedSounds={this.changeSelectedSounds}
@@ -150,6 +150,13 @@ class App extends React.Component {
               context={context}
             />
             <PadArea bar={bar} handleClick={this.handleClick} />
+            <div className="controlArea">
+            <button
+              onClick={this.state.isPlaying === false ? this.start : this.stop}
+            >
+              {this.state.isPlaying === false ? "start" : "stop"}
+            </button>
+            </div>
           </div>
         )}
       </div>

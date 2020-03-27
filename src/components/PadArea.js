@@ -4,16 +4,16 @@ export default class PadArea extends React.Component {
   render() {
     let { bar, handleClick } = this.props;
     return (
-      <div>
+      <div className="padArea">
         {[...Array(bar)].map((e, i) => (
-          <button
+          <div class="pad"
             key={i}
             onClick={() => {
               handleClick(i);
             }}
           >
-            ♦
-          </button>
+            
+          </div>
         ))}
       </div>
     );

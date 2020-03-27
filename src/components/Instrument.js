@@ -1,4 +1,5 @@
 import React from "react";
+import '../main.css';
 
 export default class Instrument extends React.Component {
   constructor(props) {
@@ -23,24 +24,27 @@ export default class Instrument extends React.Component {
     let { volume, gainNode } = this.state;
     if (gainNode !== null) gainNode.gain.value = volume;
     return (
-      <span>
-        <input
-          type="range"
-          id="volume"
-          min="0"
-          max="2"
-          value={volume}
-          step="0.01"
-          onChange={this.handleChange}
-        />
-        <button
+      <div className="instrument">
+        <div className="range-slider">
+          <input
+            type="range"
+            id="volume"
+            min="0"
+            max="2"
+            value={volume}
+            step="0.01"
+            onChange={this.handleChange}
+          />
+        </div>
+
+        <div className="instrumentButton"
           onClick={() => {
             changeSelectedSounds(soundkey);
           }}
         >
           {soundkey}
-        </button>
-      </span>
+        </div>
+      </div>
     );
   }
 }

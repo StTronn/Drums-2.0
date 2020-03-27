@@ -8,18 +8,38 @@
 </head>
 <body>
     <div class="cointainer">
-        <div class="overallControl">hello</div>
+        
+        <div class="overallControl">
+            <div class="tempoCointainer">
+            <h5>TEMPO </h5>
+            <div class="value-button" id="decrease" onclick="decreaseValue()" value="Decrease Value">-</div>
+            <input type="number" id="number" value="0" />
+            <div class="value-button" id="increase" onclick="increaseValue()" value="Increase Value">+</div>        
+        </div>
+
+        </div>
         <div class="rec"></div>
         <div class="instrumentArea">
-            <div class="instrument"></div>
+            <div class="instrument">
+                <div class="range-slider">
+                    <input class="range-slider__range" type="range" value="100" min="0" max="500">
+                  </div>
+                <div class="instrumentButton">BD</div>
+            </div>
             <div class="instrument"></div>
             <div class="instrument"></div>
             <div class="instrument"></div>
             <div class="instrument"></div>
         </div>
+        <div class="controlArea">
+            <button>start</button>
+            <button>start</button>
+            <button>start</button>
+
+        </div>
         <div class="padArea">
             
-            <div class="pad">
+            <div class="padGlow">
             </div>
             <div class="pad"></div>
             <div class="pad"></div>
