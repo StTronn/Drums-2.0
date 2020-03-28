@@ -137,7 +137,7 @@ class App extends React.Component {
     this.setState({ pattern });
   };
   keyHandler =(e)=>{
-    let{buffer,selectedSound}
+    let{buffer,selectedSound,context}=this.state;
       
     if (_.isEmpty(buffer) || selectedSound!==null)
       return;      
