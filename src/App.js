@@ -39,6 +39,7 @@ class App extends React.Component {
 
   componentDidMount() {
     this.bufferLoad();
+    
   }
 
   bufferLoad = () => {
@@ -137,7 +138,24 @@ class App extends React.Component {
   };
 
   render() {
-    let { context, soundkeys, bar, tempo, connectors,pattern,selectedSound,isPlaying,counter } = this.state;
+    let { context,buffer, soundkeys, bar, tempo, connectors,pattern,selectedSound,isPlaying,counter } = this.state;
+    window.addEventListener('keydown',(e)=>{
+      
+      if (_.isEmpty(buffer))
+        return;      
+      if (e.keyCode===97 || e.keyCode==49)
+        playSound(context,buffer['kick'],0);
+      if (e.keyCode===98 || e.keyCode==50)
+        playSound(context,buffer['hihat'],0);
+      if (e.keyCode===99 || e.keyCode==51)
+        playSound(context,buffer['snare'],0);
+      if (e.keyCode===100 || e.keyCode==52)
+        playSound(context,buffer['tom'],0);
+      if (e.keyCode===101 || e.keyCode==53)
+        playSound(context,buffer['ride'],0);
+    
+    })
+
     return (
       <div >
         
@@ -174,5 +192,7 @@ class App extends React.Component {
     );
   }
 }
+
+
 
 export default App;

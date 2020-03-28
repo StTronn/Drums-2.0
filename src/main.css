@@ -61,7 +61,12 @@ h5{
     text-align: center;
     color: white;
 }  
-
+h6{
+    margin: 0;
+    margin-bottom: 5px;
+    text-align: center;
+    color: black;
+}
 .instrumentArea{
     grid-area: ia;
     display: grid;

@@ -35,7 +35,6 @@ export default class PadArea extends React.Component {
   render() {
     let { bar, handleClick } = this.props;
     let {pattern,isPlaying,counter}=this.state;
-    console.log(this.state);
     let arr=[]
     for (let i=0;i<bar;i++) {
       if (isPlaying && i===counter)
@@ -47,9 +46,9 @@ export default class PadArea extends React.Component {
     }
 
     //console.log(this.props);
-    console.log(this.state) ; 
     return (
       <div className="padArea">
+        
         {[...Array(bar)].map((e, i) => (
           <div className={arr[i]}
             key={i}
@@ -57,7 +56,7 @@ export default class PadArea extends React.Component {
               handleClick(i);
             }}
           >
-            
+           <h6>{i+1}</h6> 
           </div>
         ))}
       </div>
