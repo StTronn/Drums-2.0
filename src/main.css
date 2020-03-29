@@ -44,14 +44,17 @@ body {
 }
 
 .overallControl {
-
     grid-area: o;
     display: grid;
+    width: 50%;
     padding: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(20px, 1fr));
     align-content: center;
 }
 .tempoCointainer {
-width: fit-content;
+  position: relative;
+  display: block;
+  width: fit-content;
 
 }
 

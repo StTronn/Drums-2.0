@@ -3,8 +3,10 @@ import "./App.css";
 import "./main.css";
 import _ from "lodash";
 import { loadSounds, playSound } from "./services/shared";
+import SimpleReverb from "./services/reverb";
 import InstrumentArea from "./components/InstrumentArea";
 import TempoButton from "./components/TempoButton";
+import MasterVolume from "./components/MasterVolume";
 import PadArea from "./components/PadArea";
 
 class App extends React.Component {
@@ -26,28 +28,40 @@ class App extends React.Component {
         tom:
           "https://raw.githubusercontent.com/wesbos/JavaScript30/master/01%20-%20JavaScript%20Drum%20Kit/sounds/tom.wav",
         ride:
-        "https://raw.githubusercontent.com/wesbos/JavaScript30/master/01%20-%20JavaScript%20Drum%20Kit/sounds/ride.wav"
-        },
+          "https://raw.githubusercontent.com/wesbos/JavaScript30/master/01%20-%20JavaScript%20Drum%20Kit/sounds/ride.wav"
+      },
       tempo: 160,
       bar: 16,
       isPlaying: false,
       selectedSound: null,
       counter: 0,
-      connectors: {}
+      connectors: {},
+      endConnector: null,
+      volume: 1,
+      
     };
   }
 
   componentDidMount() {
     this.bufferLoad();
-    
+
   }
 
   bufferLoad = () => {
-    let { bar, soundmap, context, connectors } = this.state;
+    let { bar, soundmap, context, connectors,volume } = this.state;
     let buffer = {};
     let soundkeys = Object.keys(soundmap);
     let pattern = {};
     if (context === null) context = new window.AudioContext();
+    let reverb= new SimpleReverb(context, {
+      seconds: 0.2,
+      decay: 0,
+      reverse: 0
+    });
+    let endConnector = context.createGain();
+    endConnector.gain.value=volume;
+    endConnector.connect(reverb.input);
+    reverb.connect(context.destination);
 
     for (const element of soundkeys) {
       let arr = new Array(bar).fill(0);
@@ -57,7 +71,7 @@ class App extends React.Component {
     }
 
     loadSounds(context, buffer, soundmap);
-    this.setState({ context, buffer, pattern, soundkeys, connectors });
+    this.setState({ context, buffer, pattern, soundkeys, connectors, endConnector });
   };
 
   start = () => {
@@ -89,8 +103,11 @@ class App extends React.Component {
       }
     }
   };
-  tap =()=>{
-    this.setState({selectedSound:null});
+
+
+
+  tap = () => {
+    this.setState({ selectedSound: null });
   }
   loop = () => {
     let {
@@ -136,53 +153,74 @@ class App extends React.Component {
     }
     this.setState({ pattern });
   };
-  keyHandler =(e)=>{
-    let{buffer,selectedSound,context}=this.state;
-      
-    if (_.isEmpty(buffer) || selectedSound!==null)
-      return;      
-    if (e.keyCode===97 || e.keyCode==49)
-      playSound(context,buffer['kick'],0);
-    if (e.keyCode===98 || e.keyCode==50)
-      playSound(context,buffer['hihat'],0);
-    if (e.keyCode===99 || e.keyCode==51)
-      playSound(context,buffer['snare'],0);
-    if (e.keyCode===100 || e.keyCode==52)
-      playSound(context,buffer['tom'],0);
-    if (e.keyCode===101 || e.keyCode==53)
-      playSound(context,buffer['ride'],0);
-  }
-  render() {
-    let { context, soundkeys, bar, tempo, connectors,pattern,selectedSound,isPlaying,counter } = this.state;
-    window.addEventListener('keydown',this.keyHandler);
 
+  keyHandler = (e) => {
+    let { buffer, selectedSound, context } = this.state;
+
+    if (_.isEmpty(buffer) || selectedSound !== null)
+      return;
+    if (e.keyCode === 97 || e.keyCode == 49)
+      playSound(context, buffer['kick'], 0);
+    if (e.keyCode === 98 || e.keyCode == 50)
+      playSound(context, buffer['hihat'], 0);
+    if (e.keyCode === 99 || e.keyCode == 51)
+      playSound(context, buffer['snare'], 0);
+    if (e.keyCode === 100 || e.keyCode == 52)
+      playSound(context, buffer['tom'], 0);
+    if (e.keyCode === 101 || e.keyCode == 53)
+      playSound(context, buffer['ride'], 0);
+  }
+
+  changeVolume = delta => {
+    let {volume}=this.state;
+    if (volume+delta>=0 && volume+delta<=2){
+
+      this.setState({volume:volume+delta});
+    }
+  }
+
+  handleFiltersValue = ()=> {
+    let {endConnector,volume}=this.state;
+    if (endConnector!==null){
+      endConnector.gain.value=volume;
+      
+    } 
+  
+  }
+   
+  render() {
+    let { context, soundkeys, bar, tempo, connectors, endConnector, pattern, selectedSound, isPlaying, counter,volume } = this.state;
+    window.addEventListener('keydown', this.keyHandler);
+    this.handleFiltersValue();
     return (
       <div >
-        
+
         {!_.isEmpty(connectors) && (
           <div className="cointainer">
             <div className="overallControl">
-            <TempoButton tempo={tempo} changeTempo={this.changeTempo} />
+              <TempoButton tempo={tempo} changeTempo={this.changeTempo} />
+              <MasterVolume volume={volume} changeVolume={this.changeVolume} />
             </div>
 
             <InstrumentArea
               soundkeys={soundkeys}
               changeSelectedSounds={this.changeSelectedSounds}
               connectors={connectors}
+              endConnector={endConnector}
               context={context}
               selectedSound={selectedSound}
             />
             <PadArea bar={bar} handleClick={this.handleClick} padPattern={pattern[selectedSound]} counter={counter} isPlaying={isPlaying} />
             <div className="controlArea">
-            <div className={isPlaying===false?"start":"stop"}
-              onClick={this.state.isPlaying === false ? this.start : this.stop}
-            >
-              {this.state.isPlaying === false ? "start" : "stop"}
-            </div>
-            <div className={selectedSound!==null?"start":"stop"} 
-              onClick={this.tap}
-            >
-              tap
+              <div className={isPlaying === false ? "start" : "stop"}
+                onClick={this.state.isPlaying === false ? this.start : this.stop}
+              >
+                {this.state.isPlaying === false ? "start" : "stop"}
+              </div>
+              <div className={selectedSound !== null ? "start" : "stop"}
+                onClick={this.tap}
+              >
+                tap
             </div>
 
             </div>
