@@ -5,7 +5,7 @@ export default class TempoButton extends React.Component {
     let { tempo, changeTempo } = this.props;
 
     return (
-      <div className="tempoCointainer">
+      <div style={{float:'left'}} className="tempoCointainer">
         <h5>TEMPO</h5>
         <div className="value-button" id="decrease"
           onClick={() => {

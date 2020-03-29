@@ -5,30 +5,34 @@ export default class Instrument extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selected:false,
+      selected: false,
       volume: 1,
       gainNode: null
     };
   }
+
   componentDidMount() {
-    let { connector, context } = this.props;
+    let { connector, context, endConnector } = this.props;
     let gainNode = context.createGain();
     connector.connect(gainNode);
-    gainNode.connect(context.destination);
+    gainNode.connect(endConnector);
     this.setState({ gainNode });
   }
-  componentDidUpdate (prevProps){
-    if(prevProps.selected !== this.props.selected){
-      let {selected}=this.props;
-      this.setState({selected});
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.selected !== this.props.selected) {
+      let { selected } = this.props;
+      this.setState({ selected });
     }
   }
+
   handleChange = event => {
     this.setState({ volume: event.target.value });
   };
+
   render() {
     let { changeSelectedSounds, connector, soundkey } = this.props;
-    let { volume, gainNode,selected } = this.state;
+    let { volume, gainNode, selected } = this.state;
     if (gainNode !== null) gainNode.gain.value = volume;
     return (
       <div className="instrument">
@@ -44,7 +48,7 @@ export default class Instrument extends React.Component {
           />
         </div>
 
-        <div className={selected===true?"instrumentButtonSelected":"instrumentButton"}
+        <div className={selected === true ? "instrumentButtonSelected" : "instrumentButton"}
           onClick={() => {
             changeSelectedSounds(soundkey);
           }}
