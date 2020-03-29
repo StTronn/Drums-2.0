@@ -38,7 +38,8 @@ class App extends React.Component {
       connectors: {},
       endConnector: null,
       volume: 1,
-      
+      reverb:null,
+      reverbOn:false, 
     };
   }
 
@@ -60,18 +61,18 @@ class App extends React.Component {
     });
     let endConnector = context.createGain();
     endConnector.gain.value=volume;
-    endConnector.connect(reverb.input);
-    reverb.connect(context.destination);
+    endConnector.connect(context.destination);
 
     for (const element of soundkeys) {
       let arr = new Array(bar).fill(0);
       pattern[element] = arr;
       connectors[element] = context.createGain();
+  
       //connectors[element].connect(context.destination);
     }
 
     loadSounds(context, buffer, soundmap);
-    this.setState({ context, buffer, pattern, soundkeys, connectors, endConnector });
+    this.setState({ context, buffer, pattern, soundkeys, connectors, endConnector,reverb });
   };
 
   start = () => {
@@ -154,6 +155,13 @@ class App extends React.Component {
     this.setState({ pattern });
   };
 
+  toggleReverb = ()=> {
+    let {reverbOn}=this.state;
+    
+    this.setState({reverbOn:!reverbOn})
+
+  }
+
   keyHandler = (e) => {
     let { buffer, selectedSound, context } = this.state;
 
@@ -180,16 +188,25 @@ class App extends React.Component {
   }
 
   handleFiltersValue = ()=> {
-    let {endConnector,volume}=this.state;
+    let {endConnector,volume,reverb,reverbOn,context}=this.state;
     if (endConnector!==null){
       endConnector.gain.value=volume;
-      
+      if (reverbOn){
+
+        endConnector.disconnect();
+        endConnector.connect(reverb.input);
+        reverb.connect(context.destination);  
+      }
+      else {
+        endConnector.disconnect();
+        endConnector.connect(context.destination);
+      }
     } 
   
   }
    
   render() {
-    let { context, soundkeys, bar, tempo, connectors, endConnector, pattern, selectedSound, isPlaying, counter,volume } = this.state;
+    let { context, soundkeys, bar, tempo, connectors, endConnector, pattern, selectedSound, isPlaying, counter,volume,reverbOn } = this.state;
     window.addEventListener('keydown', this.keyHandler);
     this.handleFiltersValue();
     return (
@@ -200,6 +217,12 @@ class App extends React.Component {
             <div className="overallControl">
               <TempoButton tempo={tempo} changeTempo={this.changeTempo} />
               <MasterVolume volume={volume} changeVolume={this.changeVolume} />
+              <div 
+                className={reverbOn===true?"reverbButtonSelected":"reverbButton"}
+                onClick={this.toggleReverb}
+              >
+                reverb
+              </div>
             </div>
 
             <InstrumentArea

@@ -139,6 +139,29 @@ inset -10px 0 150px #04005E, /* inner right cyan broad */
     grid-area: r;
 }
 
+.reverbButton {
+  border: 1px solid var(--g);
+  margin-top: 30px;
+  text-align: center;
+  color: white;
+  width: 6em;
+  line-height: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.reverbButtonSelected {
+  border: 1px solid var(--g);
+  background-color: var(--g);
+  margin-top: 30px;
+  text-align: center;
+  color: white;
+  width: 6em;
+  line-height: 24px;
+  height: 24px;
+  cursor: pointer;
+}  
+
 .instrumentButton {
     border: 1px solid var(--g);
     text-align: center;
