@@ -22,9 +22,18 @@
 
 function playSound(context, buffer, time, connector = undefined) {
   var source = context.createBufferSource();
+  let node= context.createGain();
+  node.gain.value=0;
+  node.gain.linearRampToValueAtTime(0, context.currentTime);
+  node.gain.linearRampToValueAtTime(4, context.currentTime + 0.001);
+  node.gain.linearRampToValueAtTime(1.3, context.currentTime + 0.103);
+  node.gain.linearRampToValueAtTime(0, context.currentTime + 0.500);
+
   source.buffer = buffer;
-  if (connector !== undefined) source.connect(connector);
-  else source.connect(context.destination);
+  source.connect(node);
+  if (connector !== undefined) node.connect(connector);
+  else node.connect(context.destination);
+
   source[source.start ? "start" : "noteOn"](time);
 }
 

@@ -1,5 +1,6 @@
 import React from "react";
 import '../main.css';
+import Envelope from 'envelope-generator';
 
 export default class Instrument extends React.Component {
   constructor(props) {
@@ -14,6 +15,15 @@ export default class Instrument extends React.Component {
   componentDidMount() {
     let { connector, context, endConnector } = this.props;
     let gainNode = context.createGain();
+    let env = new Envelope(context, {
+      attackTime: 0.1,
+      decayTime: 3,
+      sustainLevel: 0.4,
+      releaseTime: 0.1
+    });
+    
+
+
     connector.connect(gainNode);
     gainNode.connect(endConnector);
     this.setState({ gainNode });
