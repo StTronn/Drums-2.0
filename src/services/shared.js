@@ -27,7 +27,7 @@ function playSound(context, buffer, time, connector = undefined,envelope={attack
   let node= context.createGain();
   node.gain.value=0;
   node.gain.linearRampToValueAtTime(0, context.currentTime);
-  node.gain.linearRampToValueAtTime(4, context.currentTime + attackTime);
+  node.gain.linearRampToValueAtTime(5, context.currentTime + attackTime);
   node.gain.linearRampToValueAtTime(sustain, context.currentTime +attackTime + decayTime);
   node.gain.linearRampToValueAtTime(0, context.currentTime +attackTime+decayTime+relaseTime);
 

@@ -32,8 +32,21 @@ export default class Instrument extends React.Component {
     this.setState({ volume: event.target.value });
   };
 
+  handleEnvelopeChange = (delta,para)=>{
+    let {envelope}=this.state;
+    let {handleEnvelope, soundkey } = this.props;
+    let value=envelope[para];
+    
+    if (value+delta>=0 && value+delta<=3) {
+      envelope[para]=value+delta;
+      this.setState({envelope},()=>{
+        handleEnvelope(envelope,soundkey)
+      });
+    }
+  }
+
   render() {
-    let { changeSelectedSounds, handleEnvelope, soundkey } = this.props;
+    let { changeSelectedSounds,soundkey,clearPattern } = this.props;
     let { volume, gainNode, selected } = this.state;
     let {envelope}=this.state;
     if (gainNode !== null) gainNode.gain.value = volume;
@@ -56,14 +69,76 @@ export default class Instrument extends React.Component {
         <h5>Attack</h5>
         <div className="filter-button" id="decrease"
           onClick={() => {
+            this.handleEnvelopeChange(-0.001,'attackTime')
           }}
         >
           -
         </div>
 
-        <div className="filter-value" >{}</div>
+        <div className="filter-value" >{envelope.attackTime*100}</div>
         <div className="filter-button" id="increase"
           onClick={() => {
+            this.handleEnvelopeChange(0.001,'attackTime')
+          }}
+        >
+          +
+        </div>
+      </div>
+
+      <div className="filterCointainer">
+        <h5>Decay</h5>
+        <div className="filter-button" id="decrease"
+          onClick={() => {
+            this.handleEnvelopeChange(-0.001,'decayTime')
+          }}
+        >
+          -
+        </div>
+
+        <div className="filter-value" >{envelope.decayTime}</div>
+        <div className="filter-button" id="increase"
+          onClick={() => {
+            this.handleEnvelopeChange(0.001,'decayTime')
+          }}
+        >
+          +
+        </div>
+      </div>
+
+      <div className="filterCointainer">
+        <h5>sustain</h5>
+        <div className="filter-button" id="decrease"
+          onClick={() => {
+            this.handleEnvelopeChange(-0.1,'sustain')
+          }}
+        >
+          -
+        </div>
+
+        <div className="filter-value" >{envelope.sustain}</div>
+        <div className="filter-button" id="increase"
+          onClick={() => {
+            this.handleEnvelopeChange(0.1,'sustain')
+          }}
+        >
+          +
+        </div>
+      </div>
+
+      <div className="filterCointainer">
+        <h5>relase</h5>
+        <div className="filter-button" id="decrease"
+          onClick={() => {
+            this.handleEnvelopeChange(-0.001,'relaseTime')
+          }}
+        >
+          -
+        </div>
+
+        <div className="filter-value" >{envelope.relaseTime}</div>
+        <div className="filter-button" id="increase"
+          onClick={() => {
+            this.handleEnvelopeChange(0.001,'relaseTime')
           }}
         >
           +
@@ -77,6 +152,15 @@ export default class Instrument extends React.Component {
         >
           {soundkey}
         </div>
+        
+        <div className={"clearButton"}
+          onClick={() => {
+            clearPattern(soundkey);
+          }}
+        >
+          clear
+        </div>
+
       </div>
     );
   }

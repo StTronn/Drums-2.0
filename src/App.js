@@ -79,6 +79,13 @@ class App extends React.Component {
     this.setState({ context, buffer, pattern, soundkeys, connectors, endConnector,reverb,envelopes });
   };
 
+  clearPattern = (soundkey)=>{
+    let {pattern,bar}=this.state;
+    let arr = new Array(bar).fill(0);
+    pattern[soundkey]=arr;
+    this.setState({pattern});
+  }
+
   start = () => {
     let { tempo, isPlaying } = this.state;
     if (isPlaying === true) return;
@@ -246,6 +253,7 @@ class App extends React.Component {
               context={context}
               selectedSound={selectedSound}
               handleEnvelope={this.handleEnvelope}
+              clearPattern={this.clearPattern}
             />
             <PadArea bar={bar} handleClick={this.handleClick} padPattern={pattern[selectedSound]} counter={counter} isPlaying={isPlaying} />
             <div className="controlArea">

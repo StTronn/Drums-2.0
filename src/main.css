@@ -172,6 +172,23 @@ inset -10px 0 150px #04005E, /* inner right cyan broad */
     height: 30px;
     cursor: pointer;
 }
+.clearButton {
+  border: 1px solid var(--g);
+  text-align: center;
+  color: white;
+  width: 8em;
+  height: 30px;
+  cursor: pointer;
+}
+.clearButton:active {
+  border: 1px solid var(--g);
+  background-color:var(--g) ;
+  text-align: center;
+  color: white;
+  width: 8em;
+  height: 30px;
+  cursor: pointer;
+}
 
 .instrumentButtonSelected {
   border: 1px solid var(--g);
@@ -296,7 +313,7 @@ input[type=range] {
     display: inline-block;
     margin: 0px;
     width: 30px;
-    height: 20px;
+    height: 25px;
     text-align: center;
     vertical-align: middle;
     background: var(--g);
@@ -312,7 +329,7 @@ input[type=range] {
     display: inline-block;
     margin: 0px;
     width: 30px;
-    height: 20px;
+    height: 25px;
     text-align: center;
     vertical-align: middle;
     background: white;
