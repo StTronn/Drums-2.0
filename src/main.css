@@ -52,12 +52,14 @@ body {
     align-content: center;
 }
 .tempoCointainer {
-  position: relative;
-  display: block;
   width: fit-content;
-
 }
-
+.filterCointainer {
+  height: fit-content;
+}
+.rangeSlider {
+  height: fit-content;
+}
 h5{
     margin: 0;
     margin-bottom: 5px;
@@ -289,11 +291,47 @@ input[type=range] {
     -ms-user-select: none;
     user-select: none;
   }
-  
+
+  .filter-button {
+    display: inline-block;
+    margin: 0px;
+    width: 30px;
+    height: 20px;
+    text-align: center;
+    vertical-align: middle;
+    background: var(--g);
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  .filter-value {
+    display: inline-block;
+    margin: 0px;
+    width: 30px;
+    height: 20px;
+    text-align: center;
+    vertical-align: middle;
+    background: white;
+    color: black;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
   .value-button:hover {
     cursor: pointer;
   }
-  
+  .filter-button:hover {
+    cursor: pointer;
+  }
+ 
   form #decrease {
     margin-right: -4px;
     border-radius: 8px 0 0 8px;

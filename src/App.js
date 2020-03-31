@@ -42,6 +42,7 @@ class App extends React.Component {
       volume: 1,
       reverb:null,
       reverbOn:false, 
+      envelopes:null,
     };
   }
 
@@ -64,17 +65,18 @@ class App extends React.Component {
     let endConnector = context.createGain();
     endConnector.gain.value=volume;
     endConnector.connect(context.destination);
-
+    let envelopes={};
+    
     for (const element of soundkeys) {
+      let envelope={attackTime:0.001,decayTime:0.102,sustain:1.3,relaseTime:0.400};
       let arr = new Array(bar).fill(0);
       pattern[element] = arr;
       connectors[element] = context.createGain();
-  
+      envelopes[element]=envelope;
       //connectors[element].connect(context.destination);
     }
-
     loadSounds(context, buffer, soundmap);
-    this.setState({ context, buffer, pattern, soundkeys, connectors, endConnector,reverb });
+    this.setState({ context, buffer, pattern, soundkeys, connectors, endConnector,reverb,envelopes });
   };
 
   start = () => {
@@ -120,12 +122,13 @@ class App extends React.Component {
       pattern,
       buffer,
       context,
-      connectors
+      connectors,
+      envelopes,
     } = this.state;
     counter = (counter + 1) % bar;
     for (let soundkey of soundkeys) {
       if (pattern[soundkey][counter] === 1) {
-        playSound(context, buffer[soundkey], 0, connectors[soundkey]);
+        playSound(context, buffer[soundkey], 0, connectors[soundkey],envelopes[soundkey]);
       }
     }
     this.setState({ counter });
@@ -134,6 +137,7 @@ class App extends React.Component {
   changeSelectedSounds = name => {
     this.setState({ selectedSound: name });
   };
+
   handleClick = pos => {
     //if no sound selected each button will play th kick
     //if (this.state.selectedSound==='pads')
@@ -156,6 +160,13 @@ class App extends React.Component {
     }
     this.setState({ pattern });
   };
+
+  handleEnvelope = (envelope,soundkey)=>{
+    let {envelopes}=this.state;
+    
+    envelopes[soundkey]=envelope;
+    this.setState({envelopes});
+  }
 
   toggleReverb = ()=> {
     let {reverbOn}=this.state;
@@ -234,6 +245,7 @@ class App extends React.Component {
               endConnector={endConnector}
               context={context}
               selectedSound={selectedSound}
+              handleEnvelope={this.handleEnvelope}
             />
             <PadArea bar={bar} handleClick={this.handleClick} padPattern={pattern[selectedSound]} counter={counter} isPlaying={isPlaying} />
             <div className="controlArea">

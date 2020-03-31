@@ -1,6 +1,5 @@
 import React from "react";
 import '../main.css';
-import Envelope from 'envelope-generator';
 
 export default class Instrument extends React.Component {
   constructor(props) {
@@ -8,22 +7,15 @@ export default class Instrument extends React.Component {
     this.state = {
       selected: false,
       volume: 1,
-      gainNode: null
+      gainNode: null,
+      envelope:{attackTime:0.001,decayTime:0.103,sustain:1.3,relaseTime:0.500}
     };
   }
 
   componentDidMount() {
-    let { connector, context, endConnector } = this.props;
+    let { connector, context, endConnector,handleEnvelope,soundkey } = this.props;
     let gainNode = context.createGain();
-    let env = new Envelope(context, {
-      attackTime: 0.1,
-      decayTime: 3,
-      sustainLevel: 0.4,
-      releaseTime: 0.1
-    });
-    
-
-
+    let envelope={attackTime:0.001,decayTime:0.003,sustain:1.3,relaseTime:0.500};
     connector.connect(gainNode);
     gainNode.connect(endConnector);
     this.setState({ gainNode });
@@ -41,12 +33,13 @@ export default class Instrument extends React.Component {
   };
 
   render() {
-    let { changeSelectedSounds, connector, soundkey } = this.props;
+    let { changeSelectedSounds, handleEnvelope, soundkey } = this.props;
     let { volume, gainNode, selected } = this.state;
+    let {envelope}=this.state;
     if (gainNode !== null) gainNode.gain.value = volume;
     return (
       <div className="instrument">
-        <div className="range-slider">
+        <div className="rangeSlider">
           <input
             type="range"
             id="volume"
@@ -56,7 +49,26 @@ export default class Instrument extends React.Component {
             step="0.01"
             onChange={this.handleChange}
           />
+
+
         </div>
+        <div className="filterCointainer">
+        <h5>Attack</h5>
+        <div className="filter-button" id="decrease"
+          onClick={() => {
+          }}
+        >
+          -
+        </div>
+
+        <div className="filter-value" >{}</div>
+        <div className="filter-button" id="increase"
+          onClick={() => {
+          }}
+        >
+          +
+        </div>
+      </div>
 
         <div className={selected === true ? "instrumentButtonSelected" : "instrumentButton"}
           onClick={() => {

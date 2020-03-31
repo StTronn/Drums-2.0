@@ -20,7 +20,7 @@ export default class InstrumentArea extends React.Component {
 
 
   render() {
-    let { soundkeys, changeSelectedSounds, connectors, context, endConnector } = this.props;
+    let { soundkeys, changeSelectedSounds, connectors, context, endConnector,handleEnvelope } = this.props;
     let { selectedSound } = this.state;
     return (
       <div className="instrumentArea">
@@ -34,6 +34,7 @@ export default class InstrumentArea extends React.Component {
               soundkey={o}
               connector={connectors[o]}
               endConnector={endConnector}
+              handleEnvelope={handleEnvelope}
             />
           );
         })}
