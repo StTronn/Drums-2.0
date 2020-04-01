@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/Drums-2.0/static/css/main.6471cecf.chunk.css",
-    "main.js": "/Drums-2.0/static/js/main.28fd02f2.chunk.js",
-    "main.js.map": "/Drums-2.0/static/js/main.28fd02f2.chunk.js.map",
+    "main.js": "/Drums-2.0/static/js/main.267f8cc8.chunk.js",
+    "main.js.map": "/Drums-2.0/static/js/main.267f8cc8.chunk.js.map",
     "runtime-main.js": "/Drums-2.0/static/js/runtime-main.1f71d430.js",
     "runtime-main.js.map": "/Drums-2.0/static/js/runtime-main.1f71d430.js.map",
     "static/js/2.789e862b.chunk.js": "/Drums-2.0/static/js/2.789e862b.chunk.js",
     "static/js/2.789e862b.chunk.js.map": "/Drums-2.0/static/js/2.789e862b.chunk.js.map",
     "index.html": "/Drums-2.0/index.html",
-    "precache-manifest.0e1ec878ac383283889d4abcb640c5dd.js": "/Drums-2.0/precache-manifest.0e1ec878ac383283889d4abcb640c5dd.js",
+    "precache-manifest.f39c03e42a593b26e39db92496fe4e01.js": "/Drums-2.0/precache-manifest.f39c03e42a593b26e39db92496fe4e01.js",
     "service-worker.js": "/Drums-2.0/service-worker.js",
     "static/css/main.6471cecf.chunk.css.map": "/Drums-2.0/static/css/main.6471cecf.chunk.css.map",
     "static/js/2.789e862b.chunk.js.LICENSE": "/Drums-2.0/static/js/2.789e862b.chunk.js.LICENSE"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.1f71d430.js",
     "static/js/2.789e862b.chunk.js",
     "static/css/main.6471cecf.chunk.css",
-    "static/js/main.28fd02f2.chunk.js"
+    "static/js/main.267f8cc8.chunk.js"
   ]
 }
