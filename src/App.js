@@ -32,7 +32,7 @@ class App extends React.Component {
           "https://raw.githubusercontent.com/wesbos/JavaScript30/master/01%20-%20JavaScript%20Drum%20Kit/sounds/ride.wav"
         
       },
-      tempo: 160,
+      tempo: 60,
       bar: 16,
       isPlaying: false,
       selectedSound: null,
