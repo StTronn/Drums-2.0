@@ -89,16 +89,16 @@ export default class Instrument extends React.Component {
         <h5>Decay</h5>
         <div className="filter-button" id="decrease"
           onClick={() => {
-            this.handleEnvelopeChange(-0.001,'decayTime')
+            this.handleEnvelopeChange(-0.010,'decayTime')
           }}
         >
           -
         </div>
 
-        <div className="filter-value" >{envelope.decayTime}</div>
+        <div className="filter-value" >{envelope.decayTime*10}</div>
         <div className="filter-button" id="increase"
           onClick={() => {
-            this.handleEnvelopeChange(0.001,'decayTime')
+            this.handleEnvelopeChange(0.010,'decayTime')
           }}
         >
           +
@@ -129,16 +129,16 @@ export default class Instrument extends React.Component {
         <h5>relase</h5>
         <div className="filter-button" id="decrease"
           onClick={() => {
-            this.handleEnvelopeChange(-0.001,'relaseTime')
+            this.handleEnvelopeChange(-0.01,'relaseTime')
           }}
         >
           -
         </div>
 
-        <div className="filter-value" >{envelope.relaseTime}</div>
+        <div className="filter-value" >{envelope.relaseTime*10}</div>
         <div className="filter-button" id="increase"
           onClick={() => {
-            this.handleEnvelopeChange(0.001,'relaseTime')
+            this.handleEnvelopeChange(0.010,'relaseTime')
           }}
         >
           +
