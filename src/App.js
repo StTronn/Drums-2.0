@@ -90,7 +90,7 @@ class App extends React.Component {
     let { tempo, isPlaying } = this.state;
     if (isPlaying === true) return;
     else {
-      this.interval = setInterval(this.loop, (60 * 1000) / tempo);
+      this.interval = setInterval(this.loop, (60 * 1000) / (tempo*4));
       this.setState({ isPlaying: true });
     }
   };
@@ -103,7 +103,7 @@ class App extends React.Component {
   changeTempo = delta => {
     let { tempo, isPlaying } = this.state;
     let start = this.start;
-    if (tempo + delta >= 50 && tempo + delta <= 260) {
+    if (tempo + delta >= 50 && tempo + delta <= 180) {
       tempo = tempo + delta;
       if (isPlaying === true) {
         this.stop();
@@ -132,12 +132,12 @@ class App extends React.Component {
       connectors,
       envelopes,
     } = this.state;
-    counter = (counter + 1) % bar;
     for (let soundkey of soundkeys) {
       if (pattern[soundkey][counter] === 1) {
         playSound(context, buffer[soundkey], 0, connectors[soundkey],envelopes[soundkey]);
       }
     }
+    counter = (counter + 1) % bar;
     this.setState({ counter });
   };
 
