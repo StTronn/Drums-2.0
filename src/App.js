@@ -183,20 +183,23 @@ class App extends React.Component {
   }
 
   keyHandler = (e) => {
-    let { buffer, selectedSound, context } = this.state;
+    let { buffer, selectedSound, context,connectors,envelopes } = this.state;
 
     if (_.isEmpty(buffer) || selectedSound !== null)
       return;
     if (e.keyCode === 97 || e.keyCode == 49)
-      playSound(context, buffer['kick'], 0);
+      playSound(context, buffer['kick'], 0, connectors['kick'],envelopes['kick']);
     if (e.keyCode === 98 || e.keyCode == 50)
-      playSound(context, buffer['hihat'], 0);
+      playSound(context, buffer['hihat'], 0, connectors['hihat'],envelopes['hihat']);
     if (e.keyCode === 99 || e.keyCode == 51)
-      playSound(context, buffer['snare'], 0);
+      playSound(context,buffer['openhat'], 0, connectors['openhat'],envelopes['openhat']);        
     if (e.keyCode === 100 || e.keyCode == 52)
-      playSound(context, buffer['tom'], 0);
+      playSound(context,buffer['snare'], 0, connectors['snare'],envelopes['snare']);        
     if (e.keyCode === 101 || e.keyCode == 53)
-      playSound(context, buffer['ride'], 0);
+      playSound(context, buffer['tom'], 0, connectors['tom'],envelopes['tom']);        
+    if (e.keyCode === 102 || e.keyCode == 54)
+      playSound(context, buffer['ride'], 0, connectors['ride'],envelopes['ride']);        
+    
   }
 
   changeVolume = delta => {
