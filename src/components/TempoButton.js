@@ -18,13 +18,19 @@ export default class TempoButton extends React.Component {
       changeTempo(event.target.value-tempo);
     }
   }
-
+  componentDidUpdate(prevProps){
+    if (prevProps.tempo!==this.props.tempo){
+      let {tempo}=this.props;
+      this.setState({tempo});
+    }
+  }
   componentDidMount(){
     let {tempo}=this.props;
     this.setState({tempo}) 
   }
   render() {
-    let { tempo, changeTempo } = this.props;
+    let { changeTempo } = this.props;
+    let {tempo}=this.state;
     return (
       <div style={{float:'left'}} className="tempoCointainer">
         <h5>TEMPO</h5>
