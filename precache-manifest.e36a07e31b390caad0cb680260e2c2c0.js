@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "bc7df0acc8eb36a76ffd67b823b944c5",
+    "revision": "dfc04c1db685d65dacf77d6fd454d92a",
     "url": "/Drums-2.0/index.html"
   },
   {
-    "revision": "9de5cb9bd58afe957eab",
+    "revision": "cc9fb4170f75aa56eff7",
     "url": "/Drums-2.0/static/css/main.6471cecf.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Drums-2.0/static/js/2.789e862b.chunk.js.LICENSE"
   },
   {
-    "revision": "9de5cb9bd58afe957eab",
-    "url": "/Drums-2.0/static/js/main.267f8cc8.chunk.js"
+    "revision": "cc9fb4170f75aa56eff7",
+    "url": "/Drums-2.0/static/js/main.0abc29c3.chunk.js"
   },
   {
     "revision": "71dde1390e39394b5e9c",
