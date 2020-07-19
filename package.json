@@ -9,7 +9,7 @@
     "@testing-library/user-event": "^7.1.2",
     "envelope-generator": "^3.0.0",
     "gh-pages": "^2.2.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-scripts": "3.3.0"
