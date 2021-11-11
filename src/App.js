@@ -184,7 +184,6 @@ class App extends React.Component {
 
   keyHandler = (e) => {
     let { buffer, selectedSound, context,connectors,envelopes } = this.state;
-    console.log("hello");
     if (_.isEmpty(buffer) || selectedSound !== null)
       return;
     if (e.keyCode === 97 || e.keyCode == 49)

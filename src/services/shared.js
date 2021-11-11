@@ -23,7 +23,6 @@
 function playSound(context, buffer, time, connector = undefined,envelope={attackTime:0.001,decayTime:0.102,sustain:1.3,relaseTime:0.400}) {
   var source = context.createBufferSource();
   let {attackTime,decayTime,sustain,relaseTime}=envelope;
-  console.log(envelope);
   let node= context.createGain();
   node.gain.value=0;
   node.gain.linearRampToValueAtTime(0, context.currentTime);

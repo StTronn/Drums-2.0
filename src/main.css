@@ -294,7 +294,7 @@ input[type=range] {
 
   .value-button {
     display: inline-block;
-    margin: 0px;
+    /* margin: 3px; */
     width: 40px;
     height: 20px;
     text-align: center;
@@ -328,6 +328,7 @@ input[type=range] {
   .filter-value {
     display: inline-block;
     margin: 0px;
+    padding: 0 2px;
     width: 30px;
     height: 25px;
     text-align: center;
@@ -367,7 +368,7 @@ input[type=range] {
   input#number {
     text-align: center;
     border: none;
-    margin: 0px;
+    margin-top: 3px;
     width: 40px;
     height: 40px;
   }
